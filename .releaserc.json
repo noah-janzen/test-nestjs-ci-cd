@@ -1,14 +1,14 @@
 {
-  'extends': 'semantic-release-configuration',
-  'plugins':
+  "extends": "semantic-release-configuration",
+  "plugins":
     [
       [
-        '@semantic-release/commit-analyzer',
-        { 'preset': 'conventionalcommits' },
+        "@semantic-release/commit-analyzer",
+        { "preset": "conventionalcommits" }
       ],
       [
-        '@semantic-release/release-notes-generator',
-        { 'preset': 'conventionalcommits' },
-      ],
-    ],
+        "@semantic-release/release-notes-generator",
+        { "preset": "conventionalcommits" }
+      ]
+    ]
 }
