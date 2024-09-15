@@ -40,7 +40,11 @@ jobs:
         run: npm test
       - name: Run build
         run: npm run build
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_ADMIN }}
-        run: npx semantic-release
+      - name: Get next version
+        id: get_next_version
+        uses: thenativeweb/get-next-version@main
+      - name: Push Git Tag
+        run: |
+          next_version="${{ steps.get_next_version.outputs.version }}"
+          git tag -a "$next_version"
+          git push origin "$next_version"
