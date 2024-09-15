@@ -20,7 +20,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          persist-credentials: false
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -46,5 +45,5 @@ jobs:
       - name: Push Git Tag
         run: |
           next_version="${{ steps.get_next_version.outputs.version }}"
-          git tag -a "$next_version"
+          git tag -a "$next_version" -m "Release $next_version"
           git push origin "$next_version"
