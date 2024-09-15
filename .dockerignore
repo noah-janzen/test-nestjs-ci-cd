@@ -1,0 +1,27 @@
+.git/
+node_modules/
+
+# Ignore generated configuration files
+*.swp
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore local environment files
+.env
+.env.*.local
+
+# Ignore any OS specific files (Mac, Windows, etc.)
+.DS_Store
+Thumbs.db
+
+# Ignore test-related files and directories
+test/
+
+# Ignore build output
+dist/
+build/
+
+# Ignore documentation (you can include REAMDE.md in the image if you'd like, just remove the line)
+README.md
