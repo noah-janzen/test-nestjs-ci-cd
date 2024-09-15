@@ -9,7 +9,15 @@ describe('AppService', () => {
 
   describe('getTime', () => {
     it('should return the current time', () => {
-      expect(appService.getTime()).toBe(Date.now());
+      const mockedCurrentTime = 1726421185583;
+
+      // Mock Date.now() to return a consistent time
+      jest.spyOn(Date, 'now').mockReturnValue(mockedCurrentTime);
+
+      expect(appService.getTime()).toBe(mockedCurrentTime);
+
+      // Restore Date.now() after the test to avoid unexpected behavior in other tests
+      jest.spyOn(Date, 'now').mockRestore();
     });
   });
 });
