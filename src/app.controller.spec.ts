@@ -11,12 +11,12 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      const result = 'Hello World!';
-      jest.spyOn(appService, 'getHello').mockImplementation(() => result);
+    it('should return the current time', () => {
+      const result = Date.now();
+      jest.spyOn(appService, 'getTime').mockImplementation(() => result);
 
-      expect(appController.getHello()).toBe(result);
-      expect(appService.getHello).toHaveBeenCalled();
+      expect(appController.getTime()).toBe(result);
+      expect(appService.getTime).toHaveBeenCalled();
     });
   });
 });

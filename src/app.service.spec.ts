@@ -7,9 +7,9 @@ describe('AppService', () => {
     appService = new AppService();
   });
 
-  describe('getHello', () => {
-    it('should return "Hello World!"', () => {
-      expect(appService.getHello()).toBe('Hello World!');
+  describe('getTime', () => {
+    it('should return the current time', () => {
+      expect(appService.getTime()).toBe(Date.now());
     });
   });
 });
