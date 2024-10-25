@@ -11,6 +11,7 @@ on:
 jobs:
   lint-pr-title:
     name: Lint PR title
+    if: github.event.changes.title
     runs-on: ubuntu-latest
     timeout-minutes: 1
 
