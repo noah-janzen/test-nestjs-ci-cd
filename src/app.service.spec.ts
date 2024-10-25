@@ -19,5 +19,12 @@ describe('AppService', () => {
       // Restore Date.now() after the test to avoid unexpected behavior in other tests
       jest.spyOn(Date, 'now').mockRestore();
     });
+
+    it('should return a greeting', () => {
+      const name = 'Noah';
+      const result = `Hello, ${name}!`;
+
+      expect(appService.greet(name)).toBe(result);
+    });
   });
 });
