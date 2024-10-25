@@ -18,5 +18,14 @@ describe('AppController', () => {
       expect(appController.getTime()).toBe(result);
       expect(appService.getTime).toHaveBeenCalled();
     });
+
+    it('should return a greeting', () => {
+      const name = 'Noah';
+      const result = `Hello, ${name}!`;
+      jest.spyOn(appService, 'greet').mockImplementation(() => result);
+
+      expect(appController.greet(name)).toBe(result);
+      expect(appService.greet).toHaveBeenCalledWith(name);
+    });
   });
 });
