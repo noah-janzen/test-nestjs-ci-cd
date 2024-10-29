@@ -3,8 +3,8 @@ name: QA
 on: pull_request
 
 jobs:
-  qa:
-    name: QA
+  environment_setup:
+    name: Environment setup
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -20,7 +20,7 @@ jobs:
   format_check:
     name: Format Check
     runs-on: ubuntu-latest
-    needs: qa
+    needs: environment_setup
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -36,7 +36,7 @@ jobs:
   lint:
     name: Lint code
     runs-on: ubuntu-latest
-    needs: qa
+    needs: environment_setup
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -52,7 +52,7 @@ jobs:
   tests:
     name: Unit tests
     runs-on: ubuntu-latest
-    needs: qa
+    needs: environment_setup
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
