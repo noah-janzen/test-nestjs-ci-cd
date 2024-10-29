@@ -5,7 +5,7 @@ describe('AppController', () => {
   let appController: AppController;
   let appService: AppService;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     appService = new AppService();
     appController = new AppController(appService);
   });
