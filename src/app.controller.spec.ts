@@ -27,5 +27,15 @@ describe('AppController', () => {
       expect(appController.greet(name)).toBe(result);
       expect(appService.greet).toHaveBeenCalledWith(name);
     });
+
+    it('should return a random number', () => {
+      const result = 5;
+      jest
+        .spyOn(appService, 'getRandomNumber')
+        .mockImplementation(() => result);
+
+      expect(appController.randomNumber()).toBe(result);
+      expect(appService.getRandomNumber).toHaveBeenCalled();
+    });
   });
 });

@@ -26,5 +26,15 @@ describe('AppService', () => {
 
       expect(appService.greet(name)).toBe(result);
     });
+
+    it('should return a random number', () => {
+      const mockedRandomNumber = 55;
+
+      // Mock Math.random() to return a consistent number
+      jest.spyOn(Math, 'random').mockReturnValue(0.55);
+
+      expect(appService.getRandomNumber()).toBe(mockedRandomNumber);
+      expect(Math.random).toHaveBeenCalled();
+    });
   });
 });
