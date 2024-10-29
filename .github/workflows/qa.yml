@@ -9,10 +9,12 @@ jobs:
     timeout-minutes: 5
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: ./.github/actions/setup-node-action
         with:
-          node-version: '20.17.0'
           os-type: ${{ runner.os }}
 
   format_check:
@@ -20,11 +22,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: qa
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: ./.github/actions/setup-node-action
         with:
-          node-version: '20.17.0'
           os-type: ${{ runner.os }}
+
       - name: Format check
         run: npm run format:check
 
@@ -33,11 +38,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: qa
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: ./.github/actions/setup-node-action
         with:
-          node-version: '20.17.0'
           os-type: ${{ runner.os }}
+
       - name: Lint code
         run: npm run lint:nofix
 
@@ -46,10 +54,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: qa
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: ./.github/actions/setup-node-action
         with:
-          node-version: '20.17.0'
           os-type: ${{ runner.os }}
+
       - name: Run tests
         run: npm test
