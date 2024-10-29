@@ -3,7 +3,7 @@ import { AppService } from './app.service';
 describe('AppService', () => {
   let appService: AppService;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     appService = new AppService();
   });
 
