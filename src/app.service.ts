@@ -9,4 +9,8 @@ export class AppService {
   greet(name: string): string {
     return `Hello, ${name}!`;
   }
+
+  getRandomNumber(): number {
+    return Math.floor(Math.random() * 101);
+  }
 }

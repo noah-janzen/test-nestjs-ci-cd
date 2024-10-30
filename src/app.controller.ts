@@ -14,4 +14,9 @@ export class AppController {
   greet(@Query('name') name: string): string {
     return this.appService.greet(name);
   }
+
+  @Get('randomNumber')
+  randomNumber(): number {
+    return this.appService.getRandomNumber();
+  }
 }
