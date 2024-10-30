@@ -17,10 +17,43 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer() as App)
+  it('/ (GET)', async () => {
+    const currentTime = Date.now();
+
+    const response = await request(app.getHttpServer() as App)
       .get('/')
-      .expect(200)
-      .expect('Hello World!');
+      .expect(200);
+
+    const timeReturned = response.text;
+
+    expect(typeof timeReturned).toBe('string');
+
+    // timeReturned should be a 13-digit number
+    const timePattern = /^\d{13}$/;
+    expect(timePattern.test(timeReturned)).toBe(true);
+
+    expect(parseInt(timeReturned)).toBeGreaterThanOrEqual(currentTime - 1_000);
+    expect(parseInt(timeReturned)).toBeLessThanOrEqual(currentTime + 1_000);
+  });
+
+  it('/greet?name=John (GET)', async () => {
+    const name = 'John';
+    const response = await request(app.getHttpServer() as App)
+      .get(`/greet?name=${name}`)
+      .expect(200);
+
+    expect(response.text).toBe(`Hello, ${name}!`);
+  });
+
+  it('/randomNumber (GET)', async () => {
+    const response = await request(app.getHttpServer() as App)
+      .get('/randomNumber')
+      .expect(200);
+
+    const randomNumber = parseInt(response.text);
+
+    expect(typeof randomNumber).toBe('number');
+    expect(randomNumber).toBeGreaterThanOrEqual(0);
+    expect(randomNumber).toBeLessThanOrEqual(100);
   });
 });
