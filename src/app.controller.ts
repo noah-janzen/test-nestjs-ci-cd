@@ -1,12 +1,10 @@
-import { Body, Controller, Get, Logger, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 
 import { AppService } from './app.service';
-import { personSchema } from './dto-validation/person.schema';
+import { personSchema } from './dto/person.dto';
 
 @Controller()
 export class AppController {
-  private readonly logger = new Logger(AppController.name);
-
   constructor(private readonly appService: AppService) {}
 
   @Get()
