@@ -5,7 +5,7 @@ import { App } from 'supertest/types';
 
 import { AppModule } from './../src/app.module';
 import { getData, getError } from './transformations';
-import { validateNumber, validateString } from './validations';
+import { validateNumber, validateObject, validateString } from './validations';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -89,5 +89,31 @@ describe('AppController (e2e)', () => {
     expect(error.descriptionCode).toBe('REQUEST_VALIDATION_ERROR');
     expect(error.message).toBe('Request validation failed');
     expect(error.path).toBe('/register-person');
+  });
+
+  it('/events (GET)', async () => {
+    const page = 2;
+    const size = 5;
+
+    const response = await request(app.getHttpServer() as App)
+      .get(`/events?page=${page}&size=${size}`)
+      .expect(200);
+
+    const data = getData(response.text);
+
+    validateObject(data);
+
+    if (!('indexes' in data)) {
+      throw new Error('Response does not contain "indexes" property');
+    }
+
+    const { indexes } = data;
+
+    if (!Array.isArray(indexes)) {
+      throw new Error('Indexes is not an array');
+    }
+
+    expect(indexes).toHaveLength(size);
+    expect(indexes).toEqual([5, 6, 7, 8, 9]);
   });
 });

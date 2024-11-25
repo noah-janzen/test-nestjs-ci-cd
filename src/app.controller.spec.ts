@@ -76,4 +76,18 @@ describe('AppController', () => {
       expect(() => appController.registerPerson(person)).toThrow(ZodError);
     });
   });
+
+  describe('findEvents', () => {
+    it('should return a list of events', () => {
+      const page = 2;
+      const size = 6;
+      const result = [6, 7, 8, 9, 10, 11];
+      jest.spyOn(appService, 'findEvents').mockImplementation(() => result);
+
+      const indexes = appController.findEvents({ page, size });
+
+      expect(appService.findEvents).toHaveBeenCalledWith({ page, size });
+      expect(indexes).toEqual({ indexes: result });
+    });
+  });
 });

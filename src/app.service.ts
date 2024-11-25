@@ -1,5 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 
+import { PaginationRequest } from './common/pagination/pagination-request';
+
 @Injectable()
 export class AppService {
   private readonly logger = new Logger(AppService.name);
@@ -20,5 +22,9 @@ export class AppService {
     this.logger.debug(`Registering person: ${JSON.stringify(person)}`);
 
     return person;
+  }
+
+  findEvents({ page, size }: PaginationRequest) {
+    return Array.from({ length: size }, (_, i) => i + (page - 1) * size);
   }
 }
