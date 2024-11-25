@@ -1,7 +1,7 @@
 import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common';
 import { Request, Response } from 'express';
 
-import { BusinessError } from '../errors/business.error';
+import { BaseError } from '../errors/base.error';
 
 interface ErrorResponseBody {
   error: {
@@ -9,27 +9,30 @@ interface ErrorResponseBody {
     message: string;
     path: string;
     timestamp: string;
+    details?: Record<string, unknown>;
   };
 }
 
-@Catch(BusinessError)
-export class BusinessErrorFilter implements ExceptionFilter {
-  catch(error: BusinessError, host: ArgumentsHost) {
+@Catch(BaseError)
+export class BaseErrorFilter implements ExceptionFilter {
+  catch(error: BaseError, host: ArgumentsHost) {
     const context = host.switchToHttp();
     const response = context.getResponse<Response>();
     const request = context.getRequest<Request>();
 
     const { message, descriptionCode } = error;
+    const details = error.getDetails();
 
     const responseBody: ErrorResponseBody = {
       error: {
         descriptionCode,
         message,
+        details,
         path: request.url,
         timestamp: new Date().toISOString(),
       },
     };
 
-    response.status(200).json(responseBody);
+    response.status(400).json(responseBody);
   }
 }

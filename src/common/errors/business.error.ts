@@ -1,8 +1,13 @@
-export class BusinessError extends Error {
-  descriptionCode: string;
+import { BaseError } from './base.error';
 
-  constructor(message: string, descriptionCode: string) {
-    super(message);
-    this.descriptionCode = descriptionCode;
+export class BusinessError extends BaseError {
+  constructor({
+    message,
+    descriptionCode,
+  }: {
+    message: string;
+    descriptionCode: string;
+  }) {
+    super({ message, descriptionCode });
   }
 }

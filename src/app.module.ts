@@ -3,7 +3,7 @@ import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { BusinessErrorFilter } from './common/filters/business-error.filter';
+import { BaseErrorFilter } from './common/filters/base-error.filter';
 import { NormalizeResponseInterceptor } from './common/interceptors/normalize-response.interceptor';
 import { ConfigModule } from './config/config.module';
 
@@ -14,7 +14,7 @@ import { ConfigModule } from './config/config.module';
     AppService,
     {
       provide: APP_FILTER,
-      useClass: BusinessErrorFilter,
+      useClass: BaseErrorFilter,
     },
     {
       provide: APP_INTERCEPTOR,
