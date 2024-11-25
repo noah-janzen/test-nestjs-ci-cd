@@ -1,3 +1,5 @@
+import { ZodError } from 'zod';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -36,6 +38,42 @@ describe('AppController', () => {
 
       expect(appController.randomNumber()).toBe(result);
       expect(appService.getRandomNumber).toHaveBeenCalled();
+    });
+  });
+
+  describe('registerPerson', () => {
+    it('should register a person', () => {
+      const person = { firstName: 'John', lastName: 'Doe' };
+      jest.spyOn(appService, 'registerPerson').mockImplementation(() => person);
+
+      const result = appController.registerPerson(person);
+
+      expect(appService.registerPerson).toHaveBeenCalledWith(person);
+      expect(result).toEqual(undefined);
+    });
+
+    it('should throw an error if the person is missing lastName', () => {
+      const person = { firstName: 'John' };
+
+      expect(() => appController.registerPerson(person)).toThrow(ZodError);
+    });
+
+    it('should throw an error if the person is missing firstName', () => {
+      const person = { lastName: 'Doe' };
+
+      expect(() => appController.registerPerson(person)).toThrow(ZodError);
+    });
+
+    it("should throw an error if the person's firstName has less than 3 letters", () => {
+      const person = { firstName: 'Jo', lastName: 'Doe' };
+
+      expect(() => appController.registerPerson(person)).toThrow(ZodError);
+    });
+
+    it("should throw an error if the person's lastName has less than 3 letters", () => {
+      const person = { firstName: 'Jon', lastName: 'Ab' };
+
+      expect(() => appController.registerPerson(person)).toThrow(ZodError);
     });
   });
 });

@@ -23,7 +23,9 @@ export class AppController {
   }
 
   @Post('register-person')
-  registerPerson(@Body() person: unknown) {
-    personSchema.parse(person);
+  registerPerson(@Body() body: unknown) {
+    const person = personSchema.parse(body);
+
+    this.appService.registerPerson(person);
   }
 }
