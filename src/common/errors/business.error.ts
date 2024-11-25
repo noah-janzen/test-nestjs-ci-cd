@@ -1,6 +1,6 @@
-import { BaseError } from './base.error';
+export class BusinessError extends Error {
+  readonly descriptionCode: string;
 
-export class BusinessError extends BaseError {
   constructor({
     message,
     descriptionCode,
@@ -8,6 +8,7 @@ export class BusinessError extends BaseError {
     message: string;
     descriptionCode: string;
   }) {
-    super({ message, descriptionCode });
+    super(message);
+    this.descriptionCode = descriptionCode;
   }
 }

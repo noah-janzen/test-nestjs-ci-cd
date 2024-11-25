@@ -1,11 +1,10 @@
-import { IsString, MinLength } from 'class-validator';
+import { z } from 'zod';
 
-export class PersonDto {
-  @IsString()
-  @MinLength(3)
-  firstName: string;
+const personSchema = z.object({
+  firstName: z.string().min(3),
+  lastName: z.string().min(3),
+});
 
-  @IsString()
-  @MinLength(3)
-  lastName: string;
-}
+type Person = z.infer<typeof personSchema>;
+
+export { personSchema, Person };

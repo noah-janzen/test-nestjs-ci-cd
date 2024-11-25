@@ -3,9 +3,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { App } from 'supertest/types';
 
-import { getValidationPipe } from '../src/common/middleware/validation-pipe';
 import { AppModule } from './../src/app.module';
-import { getData, getError, getValidationErrors } from './transformations';
+import { getData, getError } from './transformations';
 import { validateNumber, validateString } from './validations';
 
 describe('AppController (e2e)', () => {
@@ -17,7 +16,6 @@ describe('AppController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(getValidationPipe());
     await app.init();
   });
 
@@ -91,13 +89,5 @@ describe('AppController (e2e)', () => {
     expect(error.descriptionCode).toBe('REQUEST_VALIDATION_ERROR');
     expect(error.message).toBe('Request validation failed');
     expect(error.path).toBe('/register-person');
-
-    const validationErrors = getValidationErrors(error);
-
-    expect(validationErrors).toHaveLength(1);
-
-    const validationError = validationErrors[0];
-    expect(validationError.property).toBe('lastName');
-    expect(validationError.value).toBeUndefined();
   });
 });

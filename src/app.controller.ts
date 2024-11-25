@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Logger, Post, Query } from '@nestjs/common';
 
 import { AppService } from './app.service';
-import { PersonDto } from './dto/person.dto';
+import { personSchema } from './dto-validation/person.schema';
 
 @Controller()
 export class AppController {
@@ -25,8 +25,7 @@ export class AppController {
   }
 
   @Post('register-person')
-  registerPerson(@Body() person: PersonDto) {
-    this.logger.debug(JSON.stringify(person));
-    return;
+  registerPerson(@Body() person: unknown) {
+    personSchema.parse(person);
   }
 }
