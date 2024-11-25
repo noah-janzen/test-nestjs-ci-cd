@@ -47,4 +47,15 @@ describe('AppService', () => {
       expect(result).toEqual(person);
     });
   });
+
+  describe('findEvents', () => {
+    it('should return the correct indexes', () => {
+      const page = 2;
+      const size = 5;
+
+      const result = appService.findEvents({ page, size });
+
+      expect(result).toEqual([5, 6, 7, 8, 9]);
+    });
+  });
 });
