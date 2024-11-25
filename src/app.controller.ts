@@ -1,6 +1,7 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 
 import { AppService } from './app.service';
+import { personSchema } from './dto/person.dto';
 
 @Controller()
 export class AppController {
@@ -19,5 +20,12 @@ export class AppController {
   @Get('randomNumber')
   randomNumber(): number {
     return this.appService.getRandomNumber();
+  }
+
+  @Post('register-person')
+  registerPerson(@Body() body: unknown) {
+    const person = personSchema.parse(body);
+
+    this.appService.registerPerson(person);
   }
 }

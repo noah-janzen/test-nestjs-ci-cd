@@ -37,4 +37,14 @@ describe('AppService', () => {
       expect(Math.random).toHaveBeenCalled();
     });
   });
+
+  describe('registerPerson', () => {
+    it('should return the person being registered', () => {
+      const person = { firstName: 'John', lastName: 'Doe' };
+
+      const result = appService.registerPerson(person);
+
+      expect(result).toEqual(person);
+    });
+  });
 });
